@@ -3,6 +3,7 @@ from datetime import timezone, datetime
 from account.models import User
 
 from django.db import models
+from blog.settings import *
 
 
 # Create your models here.
@@ -18,7 +19,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     category = models.ForeignKey(PostCategory, on_delete=models.CASCADE)
     content = models.TextField()
-    image = models.FileField(upload_to='posts/')
+    image = models.FileField(upload_to='media/')
     date_posted = models.DateTimeField(default=datetime.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 

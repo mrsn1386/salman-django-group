@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
-    'posts'
+    'posts',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +78,12 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR /'uploads'/ 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'jovial_varahamihira',
+        'USER': 'root',
+        'PASSWORD': 'ADk1Nt90ZNLEFriRQpKYaaHy',
+        'HOST':'annapurna.liara.cloud',
+        'PORT':'33280',
     }
 }
 
@@ -108,14 +115,30 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+# S3 Settings Based on AWS (optional)
+AWS_ACCESS_KEY_ID       = '92idkfn98ufgupma'
+AWS_SECRET_ACCESS_KEY   = '6d058bdd-49e1-4325-a507-caa2c681208d'
+AWS_STORAGE_BUCKET_NAME = 'salman-dj'
+AWS_S3_ENDPOINT_URL     = 'https://storage.c2.liara.space'
+AWS_S3_REGION_NAME      = 'us-east-1'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STORAGES = {
+  "default": {
+      "BACKEND": "storages.backends.s3.S3Storage",
+  },
+  "staticfiles": {
+      "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+  },
+}
+
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_ROOT=f'https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT_URL}/'
 AUTH_USER_MODEL = 'account.User'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

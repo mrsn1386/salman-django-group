@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.template.context_processors import media
 from django.urls import path, include
 
 from blog import settings
@@ -24,4 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('account.urls')),
     path('blog/', include('posts.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
